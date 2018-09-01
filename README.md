@@ -33,4 +33,3 @@ c.f Prototype Property: 자신을 원형으로 만들어질 새로운 객체들 
 ### Prototype Property란
 
 
-
