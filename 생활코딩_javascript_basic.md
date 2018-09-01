@@ -320,8 +320,93 @@ a(); // 실행결과 5
 
 ```
 + 동적 유효범위
-+ 정적 유효범위: 
++ 정적 유효범위: 즉, 함수가 사용,호출될 때가 아니라 정의,선언될 때 변수를 참조하게 된다.
 
+
+## 값으로서의 함수와 콜백
+
++ 함수도 객체이다. 
++ 다른 언어와 다르게 JS는 함수가 값이 될 수 있다는 점이다.
+
+
+### 속성값, 인자값으로의 함수
+```javascript
+//#1
+//함수의 property로 함수를 전달 할 수 있다.
+//이렇게 객체의 속성 값으로 담겨진 함수를 메소드라고 부른다.  
+function a(){
+  b:function(){}
+};
+
+
+//#2
+function cal(func,num){
+  return func(num)
+}
+function inc(num){
+  return num+1
+}
+function dec(num){
+  return num-1
+}
+
+
+//함수도 값이기 때문에 함수의 인자로 함수를 전달 할 수 있다. 
+//Q. python도 마찬가지인가?? 
+alert(cal(inc,1));
+alert(cal(dec,1));
+```
+
+### 리턴값으로의 함수
+
+```javascript
+function cal(mode){
+  var funcs = {
+    'plus' : function(left,right){return left + right},
+    'minus' : function(left,right){return left - right}
+  }
+  return funcs[mode];
+}
+alert(cal('plus')(2,1));
+alert(cal('minus')(2,1));
+
+```
+cal 함수 안에 있는 funcs dic에서 mode key에 맞는 value로 function을 불러온다. 여기서 주목할 점은 인자를 연속으로 ('plus')(2,1)이런식으로 주었다는 점이다. 
+
+
+배열의 값으로도 사용할 수 있다.
+
+```javascript
+var process = [
+  function(input){ return input + 10;},
+  function(input){ return input * input;},
+  function(input){ return input /2 ;}
+];
+
+var input = 1;
+for(var i=0; i<process.length; i++){
+  input = process[i](input);
+}
+
+```
+### 콜백
+
+#### 처리의 위임 : 이거 소스코드 이해 안됨
+```javascript
+function sortNumber(a,b){
+    // 위의 예제와 비교해서 a와 b의 순서를 바꾸면 정렬순서가 반대가 된다.
+    return b-a;
+}
+var numbers = [20, 10, 9,8,7,6,5,4,3,2,1];
+alert(numbers.sort(sortNumber)); // array, [20,10,9,8,7,6,5,4,3,2,1]
+}
+
+```
+
+#### 비동기 처리(비동기 콜백과 Ajax)
+
+
+https://opentutorials.org/course/743/6508 (클로저 부터 할차례)
 
 
 
