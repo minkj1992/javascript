@@ -1,6 +1,7 @@
 Javascript Basic
 ==================
-# 
+# 목차
+
 
 
 
@@ -190,6 +191,140 @@ grades.show();
 
 ## 모듈
 
+> 순수한 자바스크립트에서는 모듈이라는 개념이 분명하게 존재하지는 않는다. 다만 자바스크립트가 구동되는 호스트 환경에 따라서 서로 다른 모듈화 방법이 제공되고 있다.
+여기에서는 웹브라우저에서 로직을 모듈화하는 방법에 대해 알아보겠다.
+
+> 호스팅환경: 자바스크립트가 구동되는 환경을 의미한다. 브라우저뿐만 아니라 node.js의 경우에는 서버측에서 실행된다. Google Apps Script역시 js이지만 구글 스프레드 sheet 같은 구글 제품 위에서 실행된다. 
+
+
+### 모듈의 사용
+
+```javascript
+//main.html
+<script src="sth_module.js"></script>
+```
+
+HTML내부에서 script태그 안의 javascript를 파일을 다운로드해서 실행시킨다. 
+
+
+## UI와 API 그리고 문서 보는법
+
+### API란
+Application Programming Interface
+
+[생활코딩_API vs UI](https://opentutorials.org/course/743/6533)
+
+## 정규표현식
+
+### 정규표현식 생성
+정규표현식은 2가지 단계로 이뤄진다. 1) 컴파일, 2) 실행(execution)이다.
+
+### 컴파일
+컴파일은 검출하고자 하는 패턴을 만드는 일이다. 우선 정규표현식 객체를 만들어야 한다. 
+
++ 정규표현식 리터럴
+
+`var pattern = /a/`
+
++ 정규표현식 객체 생성자
+
+`var pattern = new RegExp('a');`
+
+### 정규표현식 메소드 실행
+
+정규표현식을 컴파일해서 객체를 만들었다면 이제 문자열에서 원하는 문자를 찾아내야 한다.
+
+#### RegExp.exec()
+
+실행결과는 문자열 a를 값으로 하는 배열을 리턴한다.
+`console.log(pattern.exec('abcdef')); //["a"]`
+
+`console.log(pattern.exec('bceret')); //null return`
+
+#### RegExp.test()
+
+test는 인자안에 패턴에 해당되는 문자열이 있으면 true 없으면 false return
+`console.log(pattern.test('abcdef')); //true`
+
+### 문자열 메소드 실행
+
+문자열 객체의 몇몇 메소드는 정규표현식을 사용할 수 있다.
+
+#### String.match() 
+RegExp.exec()와 비슷하다.
+
+`console.log('abcdef'.match(pattern)); //["a"]`
+
+#### String.replace()
+
+문자열에서 패턴 검색 후 변경, 이후에 변경된 값을 리턴한다.
+
+`console.log('abcdef'.replace(pattern, 'A')); // Abcdef`
+
+### 정규표현식 패턴 옵션
+옵션에 따라서 검출되는 데이터가 달라진다.
+
+#### i
+대소문자를 구분하지 않는다.
+
+```javascript
+var xi = /a/;
+console.log("Abcde".match(xi)); //null
+
+var oi = /a/i;
+console.log("Abcdef".match(oi)); //["A"]
+
+```
+
+#### g
+g를 붙이면 검색된 모든 결과를 리턴한다.
+
+```javascript
+
+var xg = /a/;
+console.log("abcdefg".match(xg));
+
+var og = /a/g;
+console.log("abcdea".match(og));
+```
+
+## 유효범위
+
+
++ 자바스크립트의 지역변수는 함수에서만 유효하다.
++ 자바스크립트에서 변수를 선언하는 방법에는 VAR, LET, CONST 키워드가 있다.
+`let` :블록 레벨 스코프, var과 달리 중복 선언이 되지 않는다. let을 사용하면 함수내에서 반복문을 작성할 때 편리하다. 
+`const` : 블록 레벨 스코프, 수정 불가, 선언하자마자 초기화 해야함. 
+``` javascript
+for(var i = 0; i < 1; i++){
+    var name = 'coding everybody';
+}
+alert(name);
+```
+
+
+### 정적 유효범위
+
+> 자바스크립트는 함수가 선언된 시점에서의 유효범위를 갖는다. 이러한 유효범위의 방식을 정적 유효범위(static scoping) 혹은 렉시컬(lexical scoping)이라 한다.
+
+
+```javascript
+var i =5;
+
+function a(){
+  var i = 10;
+  b();
+}
+
+function b(){
+  document.write(i); // 지역변수가 없으면 전역변수를 찾게된다.
+}
+
+a(); // 실행결과 5
+
+```
++ 동적 유효범위
++ 정적 유효범위: 
 
 
 
@@ -202,10 +337,4 @@ grades.show();
 
 
 
-
-
-
-
-
-
-[위로 이동](#)
+[위로 이동](#목차)
