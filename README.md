@@ -7,3 +7,7 @@
 - `/functional_es6`
   - [함수형 프로그래밍과 JavaScript ES6+](https://www.inflearn.com/course/functional-es6#)
   - [강의자료](https://github.com/indongyoo/functional-javascript-01)
+
+
+## vscod with js
+> [참고자료](https://feynubrick.github.io/2019/05/20/eslint-prettier.html)
