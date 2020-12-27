@@ -137,3 +137,95 @@ a.memberAction();
 private: class 안에서만
 protected: 후손까지만, 즉 extends 까지만 (외부에서 접근 불가)
 ```
+
+## interface
+
+- 선언 만 하고 싶을 때(생성과 초기화를 분리)
+
+```ts
+interface Shape {
+  color: string;
+}
+
+interface Square extends Shape {
+  sideLength: number;
+}
+
+// 이렇게 선언하면 컴파일 에러
+// let square: Square = {}
+// Generic 활용
+let square = <Square>{};
+```
+
+- 참고로 ts interface multi Inheritance 가능
+
+## Generic
+
+- generic 또한 variable이다
+- generic은 값으로 type을 가진다.
+
+- basic form
+
+```ts
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+let i = identity<number>(1000);
+```
+
+## Array의 generic
+
+- 문제상황
+
+```ts
+function getLength<T>(arg: T): T {
+  // error
+  return arg.length;
+}
+```
+
+- solution
+
+```ts
+// T[] == Array<T>
+function getLength<T>(arg: Array<T>): T[] {
+  return arg.length;
+}
+
+function getLength<T>(arg: T[]): T[] {
+  return arg.length;
+}
+
+getLength<number>([23]);
+getLength<string>(['minwook']);
+```
+
+## Generic Function type
+
+- 함수의 제너릭 타입을 선언해주는 방법
+
+```ts
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+// <T>(arg: T) => T == {<T>(arg: T) : T}
+// 후자는 object으로 타입 명시
+let myIdentity: <T>(arg: T) => T = identity;
+console.log(myIdentity('minwook'));
+
+let myIdentity: { <T>(arg: T): T } = identity;
+console.log(myIdentity('minwook'));
+```
+
+## Generic class
+
+```ts
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+```
