@@ -128,3 +128,5 @@ let maybeObject = zeroFactory();
 let objOrNull = maybeObject || (sayObj(), objectFactory());
 console.log(objOrNull); // I'm object! ›{a: 1, b: 2}
 ```
+
+if 문 처리를 한 뒤, side-effect로 기능을 추가해주고 return 값을 , 뒤에 제공가능
